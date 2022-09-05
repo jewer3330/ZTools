@@ -56,7 +56,7 @@ namespace ZTool.XNode.Examples.StateGraph {
         public void Tick(float delta)
         {
             _duration += delta;
-            if (_duration > 2)
+            if (_duration > 1)
             {
                 signal = false;
             }

@@ -45,15 +45,14 @@ namespace XNodeEditor.Examples {
             StateNode inputNode = input.node as StateNode;
             Gradient baseGradient = base.GetNoodleGradient(output, input);
             bool ret =
-            (outputNode.signal);
-            //&&(inputNode.signal);
+            (outputNode.signal)&&(inputNode.signal);
             if (ret)
             {
                 HighlightGradient(baseGradient, Color.green, input, ret);
             }
             else
             {
-                HighlightGradient(baseGradient, Color.yellow, input, outputNode.childSignal);
+                HighlightGradient(baseGradient, Color.yellow, input, outputNode.childSignal && inputNode.childSignal);
             }
             return baseGradient;
         }
