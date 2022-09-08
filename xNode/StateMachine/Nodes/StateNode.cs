@@ -25,32 +25,16 @@ namespace ZTool.XNode.Examples.StateGraph {
                 EXECUTING,
                 WAITING,
         }
-        [HideInInspector]
+        
         public Status status = Status.START;
 
         [HideInInspector]
         public bool signal;
         [HideInInspector]
         public bool childSignal;
-        public void MoveNext() {
-			StateGraph fmGraph = graph as StateGraph;
+        
 
 
-			NodePort exitPort = GetOutputPort("exit");
-
-			if (!exitPort.IsConnected) {
-				Debug.LogWarning("Node isn't connected");
-				return;
-			}
-
-			StateNode node = exitPort.Connection.node as StateNode;
-			node.OnEnter();
-		}
-
-		public void OnEnter() {
-			
-			
-		}
         [HideInInspector]
         private float _duration = 0;
         public void Tick(float delta)
@@ -65,5 +49,24 @@ namespace ZTool.XNode.Examples.StateGraph {
 
         [Serializable]
 		public class Empty { }
-	}
+
+
+        public enum NodeType
+        {
+            Root,
+            ReferencedBehavior,
+            Selector,
+            Sequence,
+            Decorator,
+            Action,
+            Condition,
+        }
+
+        public NodeType nodeType = NodeType.Root;
+
+        public string nodeName;
+        public string operation;
+
+
+    }
 }

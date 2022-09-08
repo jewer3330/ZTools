@@ -5,9 +5,11 @@ using UnityEngine;
 using ZTool.XNode;
 using ZTool.XNode.Examples.StateGraph;
 
-namespace XNodeEditor.Examples {
-	[CustomNodeEditor(typeof(StateNode))]
-	public class StateNodeEditor : NodeEditor {
+namespace XNodeEditor.Examples
+{
+    [CustomNodeEditor(typeof(StateNode))]
+    public class StateNodeEditor : NodeEditor
+    {
 
         private StateGraphEditor graphEditor;
         private StateNode node;
@@ -18,11 +20,11 @@ namespace XNodeEditor.Examples {
                 node = target as StateNode;
                 graphEditor = NodeGraphEditor.GetEditor(target.graph, window) as StateGraphEditor;
             }
-
+           
 
             GUI.color = Color.white;
-			node = target as StateNode;
-			StateGraph graph = node.graph as StateGraph;
+            node = target as StateNode;
+            StateGraph graph = node.graph as StateGraph;
             switch (node.status)
             {
                 case StateNode.Status.START:
@@ -40,10 +42,10 @@ namespace XNodeEditor.Examples {
                 default:
                     break;
             }
-          
-			string title = target.name;
-			GUILayout.Label(title, NodeEditorResources.styles.nodeHeader, GUILayout.Height(30));
-			GUI.color = Color.white;
+
+            string title = target.name;
+            GUILayout.Label(title, NodeEditorResources.styles.nodeHeader, GUILayout.Height(30));
+            GUI.color = Color.white;
 
 
             Rect dotRect = GUILayoutUtility.GetLastRect();
@@ -67,22 +69,56 @@ namespace XNodeEditor.Examples {
             GUI.DrawTexture(dotRect, NodeEditorResources.dot);
             GUI.color = Color.white;
             GUI.backgroundColor = Color.white;
+            
         }
+        
 
-		public override void OnBodyGUI() {
-			//base.OnBodyGUI();
-			StateNode node = target as StateNode;
+        
+
+        
+
+        public override void OnBodyGUI()
+        {
+            if (!target.childHide)
+            {
+                if (GUILayout.Button("-"))
+                {
+
+                   
+                    var sg = window.graph as StateGraph;
+                    sg.SetHide(target, true);
+                    sg.ResetPosition();
+                    target.hide = false;
+                    target.childHide = true;
+                }
+
+            }
+            else
+            {
+                if (GUILayout.Button("+"))
+                {
+                    var sg = window.graph as StateGraph;
+                    sg.SetHide(target, false);
+                    sg.ResetPosition();
+                    target.hide = false;
+                    target.childHide = false;
+                }
+            }
+
+            StateNode node = target as StateNode;
             NodePort input = target.GetPort("input");
             NodePort output = target.GetPort("output");
-
             GUILayout.BeginHorizontal();
             if (input != null) NodeEditorGUILayout.PortField(GUIContent.none, input, GUILayout.MinWidth(0));
             if (output != null) NodeEditorGUILayout.PortField(GUIContent.none, output, GUILayout.MinWidth(0));
             GUILayout.EndHorizontal();
             base.OnBodyGUI();
-            GUILayout.TextArea(node.status.ToString());
-            EditorGUIUtility.labelWidth = 60;
+
             
+
+
+            EditorGUIUtility.labelWidth = 60;
+
         }
-	}
+    }
 }

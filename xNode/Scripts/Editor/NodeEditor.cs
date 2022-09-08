@@ -20,7 +20,7 @@ namespace XNodeEditor {
         /// <summary> Fires every whenever a node was modified through the editor </summary>
         public static Action<ZTool.XNode.Node> onUpdateNode;
         public readonly static Dictionary<ZTool.XNode.NodePort, Vector2> portPositions = new Dictionary<ZTool.XNode.NodePort, Vector2>();
-
+        
 #if ODIN_INSPECTOR
         protected internal static bool inNodeEditor = false;
 #endif

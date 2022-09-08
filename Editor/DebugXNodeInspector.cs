@@ -18,7 +18,7 @@ namespace ZTool
             {
                 GUILayout.BeginHorizontal();
                 GUILayout.Label(k.Key.ToString());
-                if (GUILayout.Button("Show"))
+                if (GUILayout.Button("Show",GUILayout.Width(100)))
                 {
                     NodeEditorWindow.Open(k.Value);
                 }

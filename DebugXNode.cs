@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,13 +64,17 @@ namespace ZTool
             }
         }
 
-        public int AddNode(int uid,string name)
+        public int AddNode(int uid,string name,string type,string operation)
         {
             if (graphs.TryGetValue(uid, out StateGraph graph))
             {
                 var node = graph.AddNode<StateNode>();
-                node.name = name;
-              
+                //node.name = name;
+                node.nodeName = name;
+                var b = Enum.TryParse<StateNode.NodeType>(type, true, out StateNode.NodeType result);
+                if (b)
+                    node.nodeType = result;
+                node.operation = operation;
                 return node.GetInstanceID();
             }
             return 0;
@@ -81,6 +86,14 @@ namespace ZTool
             {
                 var srcNode = graph.nodes.Find(r => r.GetInstanceID() == instanceID);
                 srcNode.position = new Vector2(x, y);
+            }
+        }
+
+        public void ResetAllPosition(int uid)
+        {
+            if (graphs.TryGetValue(uid, out StateGraph graph))
+            {
+                graph.ResetPosition();
             }
         }
 

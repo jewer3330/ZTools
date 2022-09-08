@@ -456,7 +456,8 @@ namespace XNodeEditor {
                 }
 
                 NodeEditor nodeEditor = NodeEditor.GetEditor(node, this);
-
+                if (nodeEditor.target.hide)
+                    continue;
                 NodeEditor.portPositions.Clear();
 
                 // Set default label width. This is potentially overridden in OnBodyGUI

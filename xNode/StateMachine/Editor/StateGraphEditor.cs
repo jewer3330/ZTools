@@ -41,18 +41,22 @@ namespace XNodeEditor.Examples {
         /// <summary> Controls graph noodle colors </summary>
 		public override Gradient GetNoodleGradient(NodePort output, NodePort input)
         {
-            StateNode outputNode = output.node as StateNode;
-            StateNode inputNode = input.node as StateNode;
+            
             Gradient baseGradient = base.GetNoodleGradient(output, input);
-            bool ret =
-            (outputNode.signal)&&(inputNode.signal);
-            if (ret)
+
+            StateNode outputNode = output?.node as StateNode;
+            StateNode inputNode = input?.node as StateNode;
+            if (outputNode != null && inputNode != null)
             {
-                HighlightGradient(baseGradient, Color.green, input, ret);
-            }
-            else
-            {
-                HighlightGradient(baseGradient, Color.yellow, input, outputNode.childSignal && inputNode.childSignal);
+                bool ret = (outputNode.signal) && (inputNode.signal);
+                if (ret)
+                {
+                    HighlightGradient(baseGradient, Color.green, input, ret);
+                }
+                else
+                {
+                    HighlightGradient(baseGradient, Color.yellow, input, outputNode.childSignal && inputNode.childSignal);
+                }
             }
             return baseGradient;
         }

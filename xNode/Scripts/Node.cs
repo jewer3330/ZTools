@@ -24,6 +24,12 @@ namespace ZTool.XNode {
     /// </example>
     [Serializable]
     public abstract class Node : ScriptableObject {
+
+        [HideInInspector]
+        public bool hide = false;
+        [HideInInspector]
+        public bool childHide = false;
+
         /// <summary> Used by <see cref="InputAttribute"/> and <see cref="OutputAttribute"/> to determine when to display the field value associated with a <see cref="NodePort"/> </summary>
         public enum ShowBackingValue {
             /// <summary> Never show the backing value </summary>
